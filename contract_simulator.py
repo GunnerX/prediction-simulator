@@ -623,6 +623,8 @@ if 'current_balances' in st.session_state:
     
     st.sidebar.success(f"🏦 池子余额: {balances['pool_balance']} USDC")
     st.sidebar.success(f"💰 交易账户余额: {balances['user_balance']} USDC")
+    st.sidebar.info(f"🎯 交易账户O1代币余额: {balances['user_o1_balance']} O1")
+    st.sidebar.info(f"🎯 交易账户O2代币余额: {balances['user_o2_balance']} O2")
     st.sidebar.success(f"🏪 LP提供者账户余额: {balances['lp_provider_balance']} USDC")
     st.sidebar.info(f"👑 Owner余额: {balances['owner_balance']} USDC")
     st.sidebar.info(f"🔗 LP提供者账户LP余额: {balances['user_lp_balance']}")
