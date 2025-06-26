@@ -511,7 +511,7 @@ with st.expander("📝 配置参数", expanded=False):
         )
         
         account_private_key = st.text_input(
-            "交易账户私钥", 
+            "交易账户私钥(不要加0x前缀)", 
             type="password",
             help="交易账户的私钥"
         )
@@ -522,7 +522,7 @@ with st.expander("📝 配置参数", expanded=False):
         )
         
         lp_provider_private_key = st.text_input(
-            "LP提供者私钥", 
+            "LP提供者私钥(不要加0x前缀)", 
             type="password",
             help="LP提供者的私钥"
         )
@@ -630,7 +630,7 @@ if 'current_balances' in st.session_state:
     
     st.sidebar.success(f"🏪 LP提供者账户余额: {balances['lp_provider_balance']} USDC")
     st.sidebar.success(f"🔗 LP提供者账户LP余额: {balances['user_lp_balance']}")
-    
+
     st.sidebar.info(f"👑 Owner余额: {balances['owner_balance']} USDC")
     st.sidebar.metric("💰 O1价格", f"{prices['o1_price']} USDC")
     st.sidebar.metric("💰 O2价格", f"{prices['o2_price']} USDC")
