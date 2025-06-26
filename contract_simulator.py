@@ -506,7 +506,7 @@ with st.expander("📝 配置参数", expanded=False):
     with col2:
         st.subheader("👤 账户配置")
         account_address = st.text_input(
-            "交易账户地址", 
+            "交易账户地址(用于执行Deposit/Withdraw操作的账户地址)", 
             help="用于Deposit/Withdraw操作的账户地址"
         )
         
@@ -517,7 +517,7 @@ with st.expander("📝 配置参数", expanded=False):
         )
         
         lp_provider_address = st.text_input(
-            "LP提供者地址", 
+            "LP提供者地址(用于执行Add/Remove Liquidity操作的账户地址)", 
             help="用于 Add/Remove Liquidity操作的账户地址"
         )
         
