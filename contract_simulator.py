@@ -489,7 +489,7 @@ with st.expander("📝 配置参数", expanded=False):
     with col1:
         st.subheader("🌐 网络配置")
         rpc_url = st.text_input(
-            "RPC URL", 
+            "tenderly的测试的RPC节点地址", 
             help="tenderly的测试的RPC节点地址"
         )
         
