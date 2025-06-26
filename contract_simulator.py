@@ -8,6 +8,39 @@ from web3 import Web3
 from prediction_contract import PredictionContract
 from erc20_contract import ERC20Contract
 
+# 配置Streamlit页面
+st.set_page_config(
+    page_title="预测合约操作器",
+    page_icon="🔗",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# 添加自定义CSS隐藏侧栏收起按钮
+st.markdown("""
+<style>
+    /* 隐藏侧栏收起按钮 */
+    .css-1d391kg {
+        display: none;
+    }
+    
+    /* 隐藏侧栏顶部的收起按钮 */
+    [data-testid="collapsedControl"] {
+        display: none;
+    }
+    
+    /* 确保侧栏始终显示 */
+    .css-1d391kg, .css-1lcbmhc, .css-1lcbmhc .css-1d391kg {
+        display: none;
+    }
+    
+    /* 隐藏侧栏的折叠控制器 */
+    .st-emotion-cache-1cypcdb {
+        display: none;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # 链上合约操作类
 class ChainContractOperator:
     def __init__(self, rpc_url, prediction_address, base_token_address, 
