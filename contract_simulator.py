@@ -477,11 +477,9 @@ class ChainContractOperator:
         })
 
 # Streamlit 应用
-st.title("🔗 链上预测合约操作器")
-st.markdown("**真实操作 Arbitrum Sepolia 测试网上的预测合约**")
+st.title("🔗 预测市场合约模拟测试")
+st.markdown("**建议自己去tenderly创建自己的测试链环境 然后配置自己用的交互的钱包地址并领水和points**")
 
-# 警告提示
-st.warning("⚠️ 注意：这将执行真实的链上交易，会消耗真实的 Gas 费用！")
 
 # 配置区域
 st.header("🔧 合约配置")
@@ -492,7 +490,7 @@ with st.expander("📝 配置参数", expanded=False):
         st.subheader("🌐 网络配置")
         rpc_url = st.text_input(
             "RPC URL", 
-            help="区块链RPC节点地址"
+            help="tenderly的测试的RPC节点地址"
         )
         
         prediction_address = st.text_input(
@@ -520,7 +518,7 @@ with st.expander("📝 配置参数", expanded=False):
         
         lp_provider_address = st.text_input(
             "LP提供者地址", 
-            help="用于Add/Remove Liquidity操作的账户地址"
+            help="用于 Add/Remove Liquidity操作的账户地址"
         )
         
         lp_provider_private_key = st.text_input(
