@@ -241,7 +241,7 @@ class PredictionContract:
             gas_limit=gas_limit
         )
     
-    def deposit(self, option_out: int, delta: int, min_receive: int, deadline: int = 1782290396, gas_limit: Optional[int] = None) -> str:
+    def deposit(self, option_out: int, delta: int, min_receive: int, deadline: int = 2892290396, gas_limit: Optional[int] = None) -> str:
         """
         存款操作
         
@@ -264,7 +264,7 @@ class PredictionContract:
             gas_limit=gas_limit
         )
     
-    def withdraw(self, option_in: int, delta: int, min_receive: int, deadline: int = 1782290396, gas_limit: Optional[int] = None) -> str:
+    def withdraw(self, option_in: int, delta: int, min_receive: int, deadline: int = 2892290396, gas_limit: Optional[int] = None) -> str:
         """
         提款操作
         
@@ -287,7 +287,7 @@ class PredictionContract:
             gas_limit=gas_limit
         )
     
-    def swap(self, option_out: int, option_in: int, delta: int, min_receive: int, deadline: int = 1782290396, gas_limit: Optional[int] = None) -> str:
+    def swap(self, option_out: int, option_in: int, delta: int, min_receive: int, deadline: int = 2892290396, gas_limit: Optional[int] = None) -> str:
         """
         交换操作
         
