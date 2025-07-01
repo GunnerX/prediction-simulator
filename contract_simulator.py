@@ -643,7 +643,7 @@ if 'current_balances' in st.session_state:
         st.sidebar.warning("⚠️ 当前没有可用操作")
 
 # 操作参数
-num_operations = st.sidebar.slider("操作次数", min_value=1, max_value=50, value=10)
+num_operations = st.sidebar.slider("操作次数", min_value=1, max_value=1000, value=10)
 
 # 操作权重设置
 st.sidebar.subheader("操作权重")
@@ -1085,6 +1085,70 @@ if len(operator.operation_history) > 0:
         display_df['tx_hash'] = display_df['tx_hash'].apply(lambda x: f"{x[:10]}..." if x else "失败")
         # 不进行任何四舍五入，保持原始精度
         st.dataframe(display_df, use_container_width=True)
+        
+        # 导出功能
+        st.subheader("📤 数据导出")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # 导出操作历史CSV
+            export_df = df[['timestamp', 'operation_id', 'operation', 'amount', 'success', 'tx_hash', 
+                           'pool_balance', 'user_balance', 'lp_provider_balance', 'owner_balance',
+                           'user_o1_balance', 'user_o2_balance', 'user_lp_balance', 'o1_price', 'o2_price']].copy()
+            
+            csv_data = export_df.to_csv(index=False, encoding='utf-8-sig')
+            st.download_button(
+                label="📊 导出操作历史 (CSV)",
+                data=csv_data,
+                file_name=f"prediction_market_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
+        
+        with col2:
+            # 导出统计摘要
+            if len(real_operations) > 0:
+                summary_data = {
+                    "统计项目": [
+                        "总操作次数", "成功次数", "失败次数", "成功率(%)",
+                        "Deposit O1次数", "Deposit O2次数", "Withdraw O1次数", "Withdraw O2次数",
+                        "Add Liquidity次数", "Remove Liquidity次数",
+                        "最终池子余额", "最终交易账户余额", "最终LP提供者余额", "最终Owner余额",
+                        "最终O1价格", "最终O2价格", "最终LP余额"
+                    ],
+                    "数值": [
+                        len(real_operations),
+                        real_operations['success'].sum(),
+                        len(real_operations) - real_operations['success'].sum(),
+                        f"{(real_operations['success'].sum() / len(real_operations)) * 100:.2f}",
+                        len(real_operations[real_operations['operation'] == 'deposit_o1']),
+                        len(real_operations[real_operations['operation'] == 'deposit_o2']),
+                        len(real_operations[real_operations['operation'] == 'withdraw_o1']),
+                        len(real_operations[real_operations['operation'] == 'withdraw_o2']),
+                        len(real_operations[real_operations['operation'] == 'add_liquidity']),
+                        len(real_operations[real_operations['operation'] == 'remove_liquidity']),
+                        f"{df['pool_balance'].iloc[-1]:.6f}",
+                        f"{df['user_balance'].iloc[-1]:.6f}",
+                        f"{df['lp_provider_balance'].iloc[-1]:.6f}",
+                        f"{df['owner_balance'].iloc[-1]:.6f}",
+                        f"{df['o1_price'].iloc[-1]:.6f}",
+                        f"{df['o2_price'].iloc[-1]:.6f}",
+                        f"{df['user_lp_balance'].iloc[-1]:.6f}"
+                    ]
+                }
+                
+                summary_df = pd.DataFrame(summary_data)
+                summary_csv = summary_df.to_csv(index=False, encoding='utf-8-sig')
+                
+                st.download_button(
+                    label="📈 导出统计摘要 (CSV)",
+                    data=summary_csv,
+                    file_name=f"prediction_market_summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+            else:
+                st.info("💡 暂无操作数据可导出摘要")
 
 # 说明信息
 with st.expander("ℹ️ 使用说明"):
